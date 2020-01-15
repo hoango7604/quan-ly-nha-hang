@@ -1,0 +1,117 @@
+<p-toast [style]="{marginTop: '50px'}"></p-toast>
+<p-toolbar styleClass="ggm-ui-toolbar sticky">
+	<button pButton type="button" label="Trở về" icon="ui-icon-arrow-back" [routerLink]="['/accounts/list']" routerLinkActive="router-link-active" class="ui-button-raised ui-button-secondary"></button>
+	<button pButton [disabled]="!userform.valid" label="Tạo mới" icon="ui-icon-save" (click)="createAccount()" [style]="{'margin-left': '15px'}" class="ui-button-raised"></button>
+	<!-- <p-checkbox [(ngModel)]="shouldCreateAnother" binary="true" label="Create another" [style]="{'margin-left': '15px'}"></p-checkbox> -->
+</p-toolbar>
+<p-panel header="Create Account" styleClass="ui-panel-shadow">
+	<div class="ui-g ui-fluid">
+		<div class="ui-g-7">
+			<p-messages [(value)]="msgs"></p-messages>
+		</div>
+	</div>
+	<form [formGroup]="userform" (ngSubmit)="createAccount()">
+		<div class="ui-g ui-fluid">
+			
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="tenMonAn">Tên món ăn<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input pInputText formControlName="tenMonAn" #firstfield/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Tên không được rỗng"
+					*ngIf="userform.errors?.emptyFullname">
+					</p-message>
+					<p-message severity="error" text="Tên quá ngắn"
+					*ngIf="userform.errors?.shortFullname">
+					</p-message>
+					<p-message severity="error" text="Tên quá dài"
+					*ngIf="userform.errors?.longFullname">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="maDanhMuc">Danh mục<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<p-dropdown formControlName="maDanhMuc" filter="true" filterBy="label" [options]="roleItems" placeholder="Chọn danh mục"></p-dropdown>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Phải chọn danh mục"
+					*ngIf="!userform.controls['maDanhMuc'].valid && userform.controls['maDanhMuc'].dirty">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="gia">Giá<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input pInputText pKeyFilter="int" formControlName="gia"/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Mật khẩu không được rỗng"
+					*ngIf="userform.errors?.emptyPassword">
+					</p-message>
+					<p-message severity="error" text="Mật khẩu quá ngắn"
+					*ngIf="userform.errors?.shortPassword">
+					</p-message>
+					<p-message severity="error" text="Mật khẩu quá dài"
+					*ngIf="userform.errors?.longPassword">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="moTa">Mô tả</label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input pInputText formControlName="moTa"/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Tên không được rỗng"
+					*ngIf="userform.errors?.emptyFullname">
+					</p-message>
+					<p-message severity="error" text="Tên quá ngắn"
+					*ngIf="userform.errors?.shortFullname">
+					</p-message>
+					<p-message severity="error" text="Tên quá dài"
+					*ngIf="userform.errors?.longFullname">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="ghiChu">Ghi chú</label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input pInputText formControlName="ghiChu"/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Tên không được rỗng"
+					*ngIf="userform.errors?.emptyFullname">
+					</p-message>
+					<p-message severity="error" text="Tên quá ngắn"
+					*ngIf="userform.errors?.shortFullname">
+					</p-message>
+					<p-message severity="error" text="Tên quá dài"
+					*ngIf="userform.errors?.longFullname">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ggm-ui-g-6 ui-g-6">
+				<label for="role"><span style="color: red;">*</span> <strong>Trường bắt buộc</strong></label>
+			</div>
+
+			<button type="submit" style="display: none"></button>
+		</div>
+	</form>
+</p-panel>

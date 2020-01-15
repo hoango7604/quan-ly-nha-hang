@@ -1,0 +1,23 @@
+version: '3.6'
+
+networks:
+	webnet:
+		external: true
+	datanet:
+		external: true
+
+services:
+	web:
+		image: "gennovative/event-checkin-web-admin:latest"
+		networks:
+			- webnet
+		deploy: 
+			replicas: 1
+			placement:
+				constraints:
+					- node.labels.gnv.node.web==1
+			labels: 
+				traefik.enable: "true"
+				traefik.frontend.rule: "Host:display.firstidea.vn;PathPrefix:{pref:[^(/api)]}"
+				traefik.port: 80
+				traefik.docker.network: "webnet"

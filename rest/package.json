@@ -1,0 +1,35 @@
+{
+  "name": "doanpttkhttt",
+  "version": "1.0.0",
+  "description": "Do an thuc hanh mon PTTKHTTT",
+  "main": "server.js",
+  "scripts": {
+    "start": "npx nodemon server",
+    "test": "mocha --timeout 10000"
+  },
+  "author": "hoango7604",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "config": "^3.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-promise-router": "^3.0.3",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.16.5",
+    "moment": "^2.24.0",
+    "objection": "^1.6.9",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.11.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^2.0.2"
+  }
+}

@@ -1,0 +1,17 @@
+<p-toolbar styleClass="ggm-ui-toolbar sticky">
+	<button [disabled]="!isAttachedFile" pButton label="Import" icon="ui-icon-save" (click)="importVisitorsFromFile()" [style]="{'margin-left': '15px'}" class="ui-button-raised"></button>
+
+	<button pButton type="button" label="Cancel" icon="ui-icon-cancel" [routerLink]="['../']" routerLinkActive="router-link-active" class="ui-button-raised ui-button-secondary"></button>
+</p-toolbar>
+
+<p-panel header="Import Invitees" styleClass="ui-panel-shadow">
+	<div class="ui-g ui-fluid">
+		<p-fileUpload #button accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" chooseLabel="Import from file..." uploadLabel="Remove file" mode="basic" name="demo[]" (onSelect)="readFileContent($event)" customUpload="true" (uploadHandler)="discardFile($event, button)"></p-fileUpload>
+		
+		<span style="margin-left: 5px">
+			<p-message *ngIf="!isAttachedFile && !isFirstAccess" severity="error" text="File is required"></p-message>
+
+			<p-message *ngIf="isAttachedFile" severity="success" text="File selected"></p-message>
+		</span>
+	</div>
+</p-panel>

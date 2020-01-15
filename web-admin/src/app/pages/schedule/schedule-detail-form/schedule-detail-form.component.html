@@ -1,0 +1,63 @@
+<p-toolbar styleClass="ggm-ui-toolbar sticky">
+	<button pButton type="button" label="Trở về" icon="ui-icon-arrow-back" [routerLink]="['/schedule/list']" routerLinkActive="router-link-active" class="ui-button-raised ui-button-secondary" style="margin-right: 5px"></button>
+	<button pButton [disabled]="!eventForm.dirty" label="Lưu thông tin" icon="ui-icon-save" (click)="onSave()" class="button-ui-raised"></button>
+</p-toolbar>
+
+<p-panel styleClass="ui-panel-shadow">
+	<form [formGroup]="eventForm" (ngSubmit)="onSave()" *ngIf="formReady">
+		<div class="ui-g ui-fluid" >
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="name">Tên ca<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input #firstfield pInputText formControlName="eventName"/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Tên không được rỗng" *ngIf="eventForm.errors?.emptyName">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="startTime">T/g bắt đầu<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<p-calendar formControlName="startTime" showTime="true" dateFormat="dd-mm-yy"></p-calendar>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Thời gian không được rỗng"
+					*ngIf="eventForm.errors?.emptyStartTime">
+					</p-message>
+					<p-message severity="error" text="Sai định dạng"
+					*ngIf="eventForm.errors?.invalidStartTime">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="endTime">T/g kết thúc<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<p-calendar formControlName="endTime" showTime="true" dateFormat="dd-mm-yy"></p-calendar>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Thời gian không được rỗng"
+					*ngIf="eventForm.errors?.emptyEndTime">
+					</p-message>
+					<p-message severity="error" text="Sai định dạng"
+					*ngIf="eventForm.errors?.invalidEndTime">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ggm-ui-g-6 ui-g-6">
+				<label for="role"><span style="color: red;">*</span> <strong>Trường bắt buộc</strong></label>
+			</div>
+
+			<button type="submit" style="display: none"></button>
+		</div>
+	</form>
+</p-panel>

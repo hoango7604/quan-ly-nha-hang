@@ -1,0 +1,38 @@
+<p-toolbar styleClass="ggm-ui-toolbar sticky">
+	<button [disabled]="!isSelectedList" pButton label="Thêm vào ca" icon="ui-icon-save" (click)="addInvitees()" [style]="{'margin-left': '15px'}" class="ui-button-raised"></button>
+
+	<button pButton type="button" label="Huỷ" icon="ui-icon-cancel" [routerLink]="['../']" routerLinkActive="router-link-active" class="ui-button-raised ui-button-secondary"></button>
+</p-toolbar>
+
+<p-panel header="Add Invitees" styleClass="ui-panel-shadow">
+	<p-pickList 
+		[source]="uninvitedList"
+		[target]="selectedList"
+		sourceHeader="Danh sách nhân viên"
+		targetHeader="Danh sách đã chọn"
+		[responsive]="true"
+		filterBy="tenNhanVien,tenDangNhap"
+		dragdrop="true"
+		[metaKeySelection]="false"
+		sourceFilterPlaceholder="Tìm kiếm..."
+		targetFilterPlaceholder="Tìm kiếm..."
+		(onMoveToTarget)="tableChange()"
+		(onMoveToSource)="tableChange()"
+		[sourceStyle]="{'height':'500px'}"
+		[targetStyle]="{'height':'500px'}">
+
+		<ng-template let-visitor pTemplate="item">
+			<div class="ui-helper-clearfix row">
+				<div class="person-icon">
+					<i class="ui-icon-person" style="font-size: 5em;"></i>
+				</div>
+
+				<div class="person-info">
+						<div style="font-size: 16px; font-weight: bold; font-style: italic; margin: 5px 5px 0 0;">{{visitor.tenNhanVien}}</div>
+
+						<div style="font-size: 14px; margin: 5px 5px 0 0;">{{visitor.tenDangNhap}}</div>
+				</div>
+			</div>
+		</ng-template>
+	</p-pickList>
+</p-panel>

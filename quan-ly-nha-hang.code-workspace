@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "rest"
+		},
+		{
+			"path": "web-admin"
+		}
+	],
+	"settings": {}
+}

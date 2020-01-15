@@ -1,0 +1,73 @@
+<p-toast [style]="{marginTop: '60px'}"></p-toast>
+
+<p-panel [showHeader]="false">
+	<p-toolbar>
+		<div class="ui-toolbar-group-left">
+			<span style="font-size: 1.7em; font-style: italic">
+				<h1>Danh sách các yêu cầu thanh toán</h1>
+			</span>
+		</div>
+
+		<div class="ui-toolbar-group-right">
+			<input type="search" pInputText size="40" placeholder="Tìm kiếm..." height="30"
+				(input)="tableContent.filterGlobal($event.target.value, 'contains')">
+			<p-button icon="pi pi-search"></p-button>
+		</div>
+	</p-toolbar>
+	<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+	<p-table
+		[resizableColumns]="true"
+		[columns]="cols"
+		[value]="dataTable"
+		[paginator]="true"
+		[rows]="10"
+		(onLazyLoad)="loadDataLazily($event)" [lazy]="false"
+		[(selection)]="selectedItems"
+		(onRowSelect)="toggleHandler($event)"
+		(onRowUnselect)="toggleHandler($event)"
+		(onHeaderCheckboxToggle)="toggleHandler($event)"
+		selectionMode="multiple"
+		[loading]="loading" loadingIcon="fas fa-spinner"
+		[totalRecords]="totalRecords"
+		[rowsPerPageOptions]="[10,20,30,40]"
+		#tableContent>
+
+		<ng-template pTemplate="header" let-columns>
+			<tr>
+				<th style="width: 3em; display: none">
+					<p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+				</th>
+				<th *ngFor="let col of columns" [ngStyle]="{'display': col.display}" pResizableColumn [pSortableColumn]="col.field">
+					{{col.header | uppercase}}
+					<p-sortIcon [field]="col.field"></p-sortIcon>
+				</th>
+				<th pResizableColumn>
+					THAO TÁC
+				</th>
+			</tr>
+		</ng-template>
+
+		<ng-template pTemplate="body" let-rowData let-columns="columns">
+			<tr>
+				<td style="text-align: center; display: none">
+					<p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+				</td>
+				
+				<td *ngFor="let col of columns" [ngStyle]="{'display': col.display}" class="ui-resizable-column">
+					<a *ngIf="col.hasLink" routerLink="../details/{{rowData[idField]}}" [style]="{'color': 'blue'}">{{rowData[col.field]}}</a>
+					<p *ngIf="col.isDate">{{rowData[col.field] | date: 'dd/MM/yyyy - HH:mm'}}</p>
+					<p *ngIf="!col.hasLink && !col.isDate">{{rowData[col.field]}}</p>
+				</td>
+				<td style="text-align: center">
+					<span>
+						<p-button styleClass="ggm-button-hover" icon="ui-icon-account-balance-wallet" pTooltip="Xác nhận thanh toán" tooltipPosition="bottom" (onClick)="navigateEditAccount(rowData[idField])"></p-button>
+					</span>
+				</td>
+			</tr>
+		</ng-template>
+	</p-table>
+
+	<br>
+
+	<router-outlet></router-outlet>
+</p-panel>

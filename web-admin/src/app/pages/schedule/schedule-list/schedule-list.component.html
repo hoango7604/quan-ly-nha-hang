@@ -1,0 +1,61 @@
+<p-toast [style]="{marginTop: '60px'}"></p-toast>
+
+<p-panel [showHeader]="false">
+	<p-toolbar>
+		<div class="ui-toolbar-group-left">
+			<p-button label="Tạo mới" icon="ui-icon-add" [routerLink]="['../create']" class="ui-button-raised" style="margin-right: 5px"></p-button>
+		</div>
+
+		<div class="ui-toolbar-group-right">
+			<input type="search" pInputText size="40" placeholder="Tìm kiếm..." height="30"
+				(input)="tableContent.filterGlobal($event.target.value, 'contains')">
+			<p-button icon="fa fa-search"></p-button>
+		</div>
+	</p-toolbar>
+	<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+	<p-table
+		[resizableColumns]="true"
+		[columns]="cols"
+		[value]="dataTable"
+		[paginator]="true"
+		[rows]="10"
+		(onLazyLoad)="loadDataLazily($event)" [lazy]="false"
+		[(selection)]="selectedItems"
+		selectionMode="multiple"
+		(onRowSelect)="toggleHandler($event)"
+		(onRowUnselect)="toggleHandler($event)"
+		(onHeaderCheckboxToggle)="toggleHandler($event)"
+		[loading]="loading" loadingIcon="fas fa-spinner"
+		[totalRecords]="totalRecords"
+		[rowsPerPageOptions]="[10,20,30,40]"
+		#tableContent>
+
+		<ng-template pTemplate="header" let-columns>
+			<tr>
+				<th *ngFor="let col of columns" [ngStyle]="{'display': col.display}" pResizableColumn [pSortableColumn]="col.field">
+					{{col.header | uppercase}}
+					<p-sortIcon [field]="col.field"></p-sortIcon>
+				</th>
+				<th pResizableColumn>
+					THAO TÁC
+				</th>
+			</tr>
+		</ng-template>
+
+		<ng-template pTemplate="body" let-rowData let-columns="columns">
+			<tr>
+				<td *ngFor="let col of columns" [ngStyle]="{'display': col.display}" class="ui-resizable-column">
+					<a *ngIf="col.hasLink" routerLink="../details/{{rowData[idField]}}" [style]="{'color': 'blue'}">{{rowData[col.field]}}</a>
+					<p *ngIf="col.isDate">{{rowData[col.field] | date: 'dd/MM/yyyy - HH:mm'}}</p>
+					<p *ngIf="col.isBoolean" [attr.class]="rowData[col.field] == true ? 'ui-icon-check' : 'ui-icon-close'"></p>
+					<p *ngIf="!col.hasLink && !col.isDate && !col.isBoolean">{{rowData[col.field]}}</p>
+				</td>
+				<td style="text-align: center">
+					<span>
+						<p-button styleClass="ggm-button-hover" icon="ui-icon-delete-forever" pTooltip="Delete" tooltipPosition="bottom" (click)="confirmDeleteSingle(rowData[idField])"></p-button>
+					</span>
+				</td>
+			</tr>
+		</ng-template>
+	</p-table>
+</p-panel>

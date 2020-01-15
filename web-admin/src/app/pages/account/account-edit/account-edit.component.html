@@ -1,0 +1,105 @@
+<p-toolbar styleClass="ggm-ui-toolbar sticky">
+	<button [disabled]="!userform.valid" pButton label="Lưu" icon="ui-icon-save" (click)="updateAccount()" [style]="{'margin-left': '15px'}" class="ui-button-raised"></button>
+
+	<button pButton type="button" label="Huỷ" icon="ui-icon-cancel" [routerLink]="['../']" routerLinkActive="router-link-active" class="ui-button-raised ui-button-secondary"></button>
+</p-toolbar>
+
+<p-panel header="Update Account" styleClass="ui-panel-shadow">
+	<form [formGroup]="userform" (ngSubmit)="createAccount()">
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="username">Tên đăng nhập<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input pInputText formControlName="username" #firstfield/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Tên không được rỗng"
+					*ngIf="userform.errors?.emptyUsername">
+					</p-message>
+					<p-message severity="error" text="Tên quá ngắn"
+					*ngIf="userform.errors?.shortUsername">
+					</p-message>
+					<p-message severity="error" text="Tên quá dài"
+					*ngIf="userform.errors?.longUsername">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12" *ngIf="isAbleToChangePassword">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="password">Mật khẩu</label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input type="password" pPassword formControlName="password" [feedback]="false" />
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Mật khẩu quá ngắn"
+					*ngIf="userform.errors?.shortPassword">
+					</p-message>
+					<p-message severity="error" text="Mật khẩu quá dài"
+					*ngIf="userform.errors?.longPassword">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12" *ngIf="isAbleToChangePassword">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="confirmPassword">Nhập lại mật khẩu</label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input type="password" pPassword formControlName="confirmPassword" [feedback]="false"/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Không được rỗng"
+					*ngIf="userform.errors?.emptyConfirmPass">
+					</p-message>
+					<p-message severity="error" text="Không khớp"
+					*ngIf="userform.errors?.invalidConfirmPass">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="fullname">Tên nhân viên<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input pInputText formControlName="fullname"/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Tên không được rỗng"
+					*ngIf="userform.errors?.emptyFullname">
+					</p-message>
+					<p-message severity="error" text="Tên quá ngắn"
+					*ngIf="userform.errors?.shortFullname">
+					</p-message>
+					<p-message severity="error" text="Tên quá dài"
+					*ngIf="userform.errors?.longFullname">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="role">Vị trí<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<p-dropdown disabled="true" formControlName="role" filter="true" filterBy="label" [(ngModel)]="selectedRole" [options]="roleItems" placeholder="Chọn vị trí"></p-dropdown>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Phải chọn một vị trí"
+					*ngIf="!userform.controls['role'].valid && userform.controls['role'].dirty">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ggm-ui-g-6 ui-g-6">
+				<label for="role"><span style="color: red;">*</span> <strong>Trường bắt buộc</strong></label>
+			</div>
+
+			<button type="submit" style="display: none"></button>
+		</div>
+	</form>
+</p-panel>

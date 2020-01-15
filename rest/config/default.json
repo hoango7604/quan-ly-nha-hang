@@ -1,0 +1,12 @@
+{
+	"db_config": {
+		"client": "pg",
+		"connection": {
+			"host": "localhost",
+			"user": "postgres",
+			"password": "postgres",
+			"database": "doanpttkhttt"
+		}
+	},
+	"JWT_SECRET": "Pk3Wgq4Zol7fHVRF7vW3"
+}

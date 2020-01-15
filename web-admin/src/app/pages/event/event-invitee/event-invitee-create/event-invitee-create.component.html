@@ -1,0 +1,82 @@
+<p-toolbar styleClass="ggm-ui-toolbar sticky">
+	<button [disabled]="!inviteeForm.valid" pButton label="Create" icon="ui-icon-save" (click)="createInvitee()" [style]="{'margin-left': '15px'}" class="ui-button-raised"></button>
+
+	<button pButton type="button" label="Cancel" icon="ui-icon-cancel" [routerLink]="['../']" routerLinkActive="router-link-active" class="ui-button-raised ui-button-secondary"></button>
+</p-toolbar>
+
+<p-panel header="Create Invitee" styleClass="ui-panel-shadow">
+	<div class="ui-g ui-fluid">
+		<div class="ui-g-7">
+			<p-messages [(value)]="msgs"></p-messages>
+		</div>
+	</div>
+	<form [formGroup]="inviteeForm" (ngSubmit)="createInvitee()">
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="fullname">Full name<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input pInputText formControlName="fullname" #firstfield/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Empty full name"
+					*ngIf="inviteeForm.errors?.emptyFullname">
+					</p-message>
+					<p-message severity="error" text="Full name too short"
+					*ngIf="inviteeForm.errors?.shortFullname">
+					</p-message>
+					<p-message severity="error" text="Full name too long"
+					*ngIf="inviteeForm.errors?.longFullname">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="email">Email<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input type="email" pInputText formControlName="email"/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Invalid Email"
+					*ngIf="inviteeForm.errors?.invalidEmail">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="phoneNumber">Phone number</label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input type="email" pattern="(09|01[2|6|8|9])+([0-9]{8})\b" pInputText formControlName="phoneNumber"/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Invalid phone number"
+					*ngIf="inviteeForm.errors?.invalidPhoneNumber">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="company">Company</label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input pInputText formControlName="company"/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					
+				</div>
+			</div>
+
+			<div class="ggm-ui-g-6 ui-g-6">
+				<label for="role"><span style="color: red;">*</span> <strong>Required info</strong></label>
+			</div>
+
+			<button type="submit" style="display: none"></button>
+		</div>
+	</form>
+</p-panel>

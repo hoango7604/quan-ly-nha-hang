@@ -1,0 +1,63 @@
+<p-toolbar styleClass="ggm-ui-toolbar sticky">
+	<button [disabled]="!visitorForm.valid" pButton label="Lưu chỉnh sửa" icon="ui-icon-save" (click)="updateVisitor()" [style]="{'margin-left': '15px'}" class="ui-button-raised"></button>
+
+	<button pButton type="button" label="Huỷ" icon="ui-icon-cancel" [routerLink]="['../../']" routerLinkActive="router-link-active" class="ui-button-raised ui-button-secondary"></button>
+</p-toolbar>
+
+<p-panel header="Update Visitor" styleClass="ui-panel-shadow">
+	<form [formGroup]="visitorForm" (ngSubmit)="updateVisitor()">
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="fullname">Tên món<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input disabled="true" pInputText formControlName="fullname" #firstfield/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Empty full name"
+					*ngIf="visitorForm.errors?.emptyFullname">
+					</p-message>
+					<p-message severity="error" text="Full name too short"
+					*ngIf="visitorForm.errors?.shortFullname">
+					</p-message>
+					<p-message severity="error" text="Full name too long"
+					*ngIf="visitorForm.errors?.longFullname">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="email">Số lượng<span style="color: red;">*</span></label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input type="number" pInputText formControlName="email"/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					<p-message severity="error" text="Số lượng không hợp lệ (nếu huỷ món phải kèm lý do)"
+					*ngIf="visitorForm.errors?.invalidEmail">
+					</p-message>
+				</div>
+			</div>
+
+			<div class="ui-g-12">
+				<div class="ggm-ui-g-1 ui-g-1">
+					<label for="company">Ghi chú (huỷ món)</label>
+				</div>
+				<div class="ggm-ui-g-3 ui-g-3">
+					<input pInputText formControlName="company"/>
+				</div>
+				<div class="ggm-ui-g-6 ui-g-6">
+					
+				</div>
+			</div>
+
+			<div class="ggm-ui-g-6 ui-g-6">
+				<label for="role"><span style="color: red;">*</span> <strong>Trường bắt buộc</strong></label>
+			</div>
+
+			<button type="submit" style="display: none"></button>
+		</div>
+	</form>
+</p-panel>
