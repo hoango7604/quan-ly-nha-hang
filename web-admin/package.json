@@ -36,7 +36,7 @@
 		"@angular/router": "~6.1",
 		"@auth0/angular-jwt": "^2.0.0",
 		"@fortawesome/fontawesome-free": "~5.2",
-		"chart.js": "^2.7.3",
+		"chart.js": "^2.9.4",
 		"classlist.js": "1.1.20150312",
 		"core-js": "~2.5",
 		"intl": "~1.2",
