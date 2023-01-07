@@ -57,11 +57,11 @@
 	"devDependencies": {
 		"@angular-builders/custom-webpack": "~2.2.1",
 		"@angular-builders/dev-server": "~2.2.2",
-		"@angular-devkit/build-angular": "~0.7",
+		"@angular-devkit/build-angular": "~15.0",
 		"@angular/cli": "~6.0",
 		"@angular/compiler-cli": "~6.0",
 		"@angular/language-service": "~6.0",
-		"@compodoc/compodoc": "~1.0",
+		"@compodoc/compodoc": "~1.1",
 		"@types/jasmine": "~2.5",
 		"@types/jasminewd2": "~2.0",
 		"codelyzer": "~4.4",
